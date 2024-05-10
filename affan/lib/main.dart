@@ -16,15 +16,18 @@ class MyApp extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TeksUtama(teks1: 'AULIYAAHDA WANNURA', teks2: 'NIM: STI202102214'),
-            TeksUtama(teks1: 'DWIKI LUKITO', teks2: 'NIM: STI202102216'),
+            TeksUtama(
+                teks1: 'MOCH. NASRULLAH BIN TAUFIQ A.R',
+                teks2: 'NIM: STI202102420'),
+            TeksUtama(
+                teks1: 'DENNY KUSUMA WARDANA', teks2: 'NIM: STI202102421'),
             TeksUtama(
               teks1: 'AFFAN NUR AFTO ',
               teks2: 'NIM: STI202102422',
               backgroundColor: Color.fromARGB(255, 163, 255, 142),
             ),
-            TeksUtama(teks1: 'WIDYANTIKA', teks2: 'NIM: STI202102220'),
-            TeksUtama(teks1: 'ALIF IRVAN IRAWAN', teks2: 'NIM: STI202102227'),
+            TeksUtama(teks1: 'SURIPTO', teks2: 'NIM: STI202102425'),
+            TeksUtama(teks1: 'RIZKA NUR KHARIFAH', teks2: 'NIM: STI202102431'),
           ],
         ),
       ),
