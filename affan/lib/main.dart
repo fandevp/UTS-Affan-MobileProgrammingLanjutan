@@ -1,73 +1,112 @@
 import 'package:flutter/material.dart';
 
-class TeksUtama extends StatefulWidget {
-  final GlobalKey<StateTeksUtama> key = GlobalKey<StateTeksUtama>();
+void main() => runApp(const MyApp());
 
-  TeksUtama() : super(key: GlobalKey<StateTeksUtama>());
-
-  @override
-  StateTeksUtama createState() => StateTeksUtama();
-}
-
-class StateTeksUtama extends State<TeksUtama> {
-  var listNama = [
-    'Affan',
-    'Suripto',
-    'Rizka',
-    'Linda',
-    'Yeza',
-  ];
-  var listWarna = [
-    Color.fromARGB(255, 78, 220, 12),
-    Colors.purple,
-    Colors.teal,
-    Colors.lime,
-    Colors.indigo,
-    Colors.deepPurple,
-  ];
-  int index = 0;
-
-  void incrementIndex() {
-    setState(() {
-      index++;
-    });
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-      margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.cyan[50],
-        borderRadius: BorderRadius.circular(25),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 2,
-            offset: Offset(35.0, 30.0),
-            blurRadius: 5,
-          )
-        ],
-        border: Border.all(
-          color: Colors.blue,
-          width: 5,
+    const String appTitle = 'Flutter layout demo';
+    return MaterialApp(
+      title: appTitle,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(appTitle),
         ),
-      ),
-      child: Column(
-        children: [
-          Text(
-            'Apa kabar',
-            textDirection: TextDirection.ltr,
-          ),
-          Text(
-            listNama[index % listNama.length],
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-              fontSize: 45,
-              fontWeight: FontWeight.bold,
-              color: listWarna[index % listWarna.length],
+        body: const SingleChildScrollView(
+            child: Column(
+          children: [
+            ImageSection(image: 'images/saya.jpg'),
+            TitleSection(
+              name: 'Affan Nur Afto',
+              location: 'Datar,Sumbang,Banyumas',
             ),
+            ButtonSection(),
+            TextSection(description: 'HOPE'),
+          ],
+        )),
+      ),
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({
+    super.key,
+    required this.name,
+    required this.location,
+  });
+
+  final String name;
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Row(
+        children: [
+          Expanded(
+            //1//
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //2//
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Text(
+                  location,
+                  style: TextStyle(
+                    color: Colors.grey[500],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //3//
+          Icon(
+            Icons.star,
+            color: Colors.red[500],
+          ),
+          const Text('41'),
+        ],
+      ),
+    );
+  }
+}
+
+class ButtonSection extends StatelessWidget {
+  const ButtonSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Theme.of(context).primaryColor;
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ButtonWithText(
+            color: color,
+            icon: Icons.call,
+            label: 'CALL',
+          ),
+          ButtonWithText(
+            color: color,
+            icon: Icons.near_me,
+            label: 'ROUTE',
+          ),
+          ButtonWithText(
+            color: color,
+            icon: Icons.share,
+            label: 'SHARE',
           ),
         ],
       ),
@@ -75,34 +114,73 @@ class StateTeksUtama extends State<TeksUtama> {
   }
 }
 
-void main() {
-  TeksUtama teksUtama = TeksUtama();
+class ButtonWithText extends StatelessWidget {
+  const ButtonWithText({
+    super.key,
+    required this.color,
+    required this.icon,
+    required this.label,
+  });
 
-  runApp(MaterialApp(
-    title: 'Halo Dunia',
-    home: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.blue[800],
-        title: const Text(
-          'Halo Dunia',
-          style: TextStyle(color: Colors.white),
+  final Color color;
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
         ),
+      ],
+    );
+  }
+}
+
+class TextSection extends StatelessWidget {
+  const TextSection({
+    super.key,
+    required this.description,
+  });
+
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Text(
+        description,
+        softWrap: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20), // Add some space from the top
-            teksUtama,
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Random',
-        onPressed: () => teksUtama.key.currentState?.incrementIndex(),
-        child: const Icon(Icons.refresh),
-      ),
-    ),
-  ));
+    );
+  }
+}
+
+class ImageSection extends StatelessWidget {
+  const ImageSection({super.key, required this.image});
+
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      image,
+      width: 600,
+      height: 240,
+      fit: BoxFit.cover,
+    );
+  }
 }
